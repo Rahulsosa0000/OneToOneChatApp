@@ -1,0 +1,30 @@
+<div class="main-container">
+  <div class="chat-container">
+    <div *ngIf="!isChatStarted" class="login-form">
+      <h2>Enter your username</h2>
+      <input type="text" [(ngModel)]="username" placeholder="Your username">
+      <button (click)="initChat()">Enter Chat</button>
+    </div>
+
+    <div *ngIf="isChatStarted" class="chat-interface">
+      <h2>Welcome, {{ username }}</h2>
+      <div class="recipient-input">
+        <input type="text" [(ngModel)]="recipient" placeholder="Send message to">
+      </div>
+      <div class="chat-window">
+        <div class="chat-messages">
+          <div *ngFor="let msg of messages" class="message" [ngClass]="{'sent': msg.from === username, 'received': msg.from !== username}">
+            <strong>{{ msg.from }}</strong>
+            <div class="message-content">{{ msg.content }}</div>
+            <small>{{ msg.timestamp | date:'shortTime' }}</small>
+          </div>
+        </div>
+      </div>
+      <div class="message-input">
+        <textarea [(ngModel)]="messageContent" placeholder="Type your message"></textarea>
+        <button (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
